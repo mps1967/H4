@@ -38,7 +38,6 @@ namespace SkalProj_Datastrukturer_Minne
         internal void EnqueueBrothers()
         {
             int n = queue_.Count;
-            int i = 0;
             // man får det här om man ändra kön medan itereras:
             // System.InvalidOperationException: Collection was modified;
             // enumeration operation may not execute.

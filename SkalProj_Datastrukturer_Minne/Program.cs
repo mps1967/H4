@@ -21,6 +21,7 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
+                    + "\n5. Fibbonacci"
                     + "\n0. Exit the application");
                 Console.WriteLine("Please enter some input!");
                 switch (ReadChar())
@@ -37,6 +38,9 @@ namespace SkalProj_Datastrukturer_Minne
                     case '4':
                         CheckParanthesis();
                         break;
+                    case '5':
+                        Fibbonacci();
+                        break;
                     /*
                      * Extend the menu to include the recursive 
                      * and iterative exercises.
@@ -45,7 +49,7 @@ namespace SkalProj_Datastrukturer_Minne
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4)");
+                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4, 5)");
                         break;
                 }
             }
@@ -53,7 +57,7 @@ namespace SkalProj_Datastrukturer_Minne
 
         static private char ReadChar()
         {
-            string?input = Console.ReadLine();
+            string? input = Console.ReadLine();
             if (input == null) return '\0';
             input = input.Trim();
             if (input.Length == 0) return '\0';
@@ -120,6 +124,57 @@ namespace SkalProj_Datastrukturer_Minne
             Parenthesis.Check();
         }
 
+        private static int FibNR(int n)
+        {
+            if (n < 2) return n;
+            List<int> fl = [];
+            fl.Add(0);
+            fl.Add(1);
+            for (int i = 2; i <= n; ++i)
+            {
+                var a = fl[fl.Count - 1];
+                var b = fl[fl.Count - 2];
+                var c = a + b;
+                if (c < 0) return -1;
+                fl.Add(c);
+            }
+            return fl[n];
+        }
+        private static int FibR(int n)
+        {
+            if (n < 2) return n;
+            int a = FibR(n - 2);
+            if (a < 0) return -1;
+            int b = FibR(n - 1);
+            if (b < 0) return -1;
+            int c = a + b;
+            if (c < 0) return -1;
+            return c;
+        }
+        static void Fibbonacci()
+        {
+            Console.WriteLine("Fibbonacci(N) N=");
+            string? input = Console.ReadLine() ?? "0";
+            if (!int.TryParse(input, out int num)) return;
+            int nr = FibNR(num);
+            if (num < 40)
+            {
+                // The recursion is too slow (no caching of previous results)
+                int r = FibR(num);
+                if (r < 0)
+                {
+                    Console.WriteLine("integer overflow");
+                    return;
+                }
+                Console.WriteLine($"Recursive Fibbonacci({num})={r}");
+            }
+            if (nr < 0)
+            {
+                Console.WriteLine("integer overflow");
+                return;
+            }
+            Console.WriteLine($"Not Recursive Fibbonacci({num})={nr}");
+            return;
+        }
     }
 }
-

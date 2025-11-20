@@ -194,6 +194,7 @@ namespace SkalProj_Datastrukturer_Minne
                     case 'c': goto case 'C';
                     case 'C':
                         lt.CountAndCapacity();
+                        continue;
                     case 'b': goto case 'B';
                     case 'B':
                         lt.AddBrothers();
