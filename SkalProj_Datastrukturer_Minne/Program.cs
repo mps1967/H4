@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -13,23 +15,15 @@ namespace SkalProj_Datastrukturer_Minne
 
             while (true)
             {
+                // Console.Clear();
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
                     + "\n0. Exit the application");
-                char input = ' '; //Creates the character input to be used with the switch-case below.
-                try
-                {
-                    input = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
-                }
-                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
-                {
-                    Console.Clear();
-                    Console.WriteLine("Please enter some input!");
-                }
-                switch (input)
+                Console.WriteLine("Please enter some input!");
+                switch (ReadChar())
                 {
                     case '1':
                         ExamineList();
@@ -55,6 +49,15 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                 }
             }
+        }
+
+        static private char ReadChar()
+        {
+            string?input = Console.ReadLine();
+            if (input == null) return '\0';
+            input = input.Trim();
+            if (input.Length == 0) return '\0';
+            return input[0];
         }
 
         /// <summary>
@@ -86,10 +89,11 @@ namespace SkalProj_Datastrukturer_Minne
         static void ExamineQueue()
         {
             /*
-             * Loop this method untill the user inputs something to exit to main menue.
+             * Loop this method untill the user inputs something to exit to main menu.
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            Q.Examine();
         }
 
         /// <summary>
@@ -102,6 +106,7 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+            StackTest.Examine();
         }
 
         static void CheckParanthesis()
@@ -111,7 +116,7 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
-
+            Parenthesis.Check();
         }
 
     }
