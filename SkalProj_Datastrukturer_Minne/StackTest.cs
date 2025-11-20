@@ -19,7 +19,11 @@ namespace SkalProj_Datastrukturer_Minne
         }
         internal string? Pop()
         {
-            if (stack_.TryPop(out string result)) return result;
+            if (stack_.TryPop(out string? result))
+            {
+                // null in stack?!
+                return result ?? "__NULL__";
+            }
             return null;
         }
         internal string Display()

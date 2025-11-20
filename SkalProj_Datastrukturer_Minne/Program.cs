@@ -81,6 +81,7 @@ namespace SkalProj_Datastrukturer_Minne
             //string value = input.substring(1);
 
             //switch(nav){...}
+            ListTest.Examine();
         }
 
         /// <summary>

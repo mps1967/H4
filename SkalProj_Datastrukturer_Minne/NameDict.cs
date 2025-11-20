@@ -38,6 +38,22 @@ namespace SkalProj_Datastrukturer_Minne
             return parts[0];
         }
 
+        internal static int Num(string? name_num)
+        {
+            if (name_num == null) return 0;
+            string s = name_num.Trim();
+            if (s.Length == 0) return 0;
+            StringSplitOptions opt =
+                StringSplitOptions.TrimEntries |
+                StringSplitOptions.RemoveEmptyEntries;
+            string[] parts = s.Split(WHITESPACE, opt);
+            if (parts.Length < 2) return 0;
+            parts[0] = string.Empty;
+            s = string.Join(string.Empty, parts);
+            if (int.TryParse(s, out var num)) return num;
+            return 0;
+        }
+
         internal string NewNameNum(string? s)
         {
             string name = Name(s);
@@ -58,6 +74,40 @@ namespace SkalProj_Datastrukturer_Minne
             // Unexplainable sytuation.
             Debug.Assert(false);
             return 0;
+        }
+        public static bool Parse(string? s, out string name, out int num)
+        {
+            name = string.Empty;
+            num = 0;
+            if (s == null) return false;
+            string t = Norm(s);
+            if (t.Length == 0) return false;
+            if (int.TryParse(t, out int x))
+            {
+                if (x >= 0)
+                {
+                    num = x;
+                    return true;
+                }
+            }
+            StringSplitOptions opt =
+                StringSplitOptions.TrimEntries |
+                StringSplitOptions.RemoveEmptyEntries;
+            string[] parts = t.Split(WHITESPACE, opt);
+            if (parts.Length == 0) return false;
+            if (parts[0].Length == 0) return false;
+            name = parts[0];
+            parts[0] = string.Empty;
+            string n = string.Join(string.Empty, parts);
+            n = n.Trim();
+            if (n == string.Empty) return true;
+            if (int.TryParse(n, out int y))
+            {
+                num = y;
+                return true;
+            }
+            // we only have a name without a number. that's ok.
+            return true;
         }
 
     }
